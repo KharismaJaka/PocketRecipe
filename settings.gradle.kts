@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PocketResep"
+rootProject.name = "PocketResep2"
 include(":app")
