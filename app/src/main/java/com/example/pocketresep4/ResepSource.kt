@@ -1,4 +1,6 @@
-package com.example.pocketresep2
+package com.example.pocketresep4
+
+import com.example.pocketresep4.Resep
 
 object ResepSource {
     val daftarResep = listOf(

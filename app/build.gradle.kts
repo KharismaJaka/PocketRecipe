@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pocketresep2"
+    namespace = "com.example.pocketresep4"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.pocketresep2"
+        applicationId = "com.example.pocketresep4"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

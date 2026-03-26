@@ -1,4 +1,4 @@
-package com.example.pocketresep2.ui.theme
+package com.example.pocketresep4.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

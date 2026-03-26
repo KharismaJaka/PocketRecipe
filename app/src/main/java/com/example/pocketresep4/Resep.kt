@@ -1,4 +1,4 @@
-package com.example.pocketresep2
+package com.example.pocketresep4
 data class Resep(
     val nama: String,
     val bahan: String,
