@@ -17,25 +17,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.pocketresep4.ui.theme.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme(
-                colorScheme = lightColorScheme(
-                    primary = Color(0xFFE91E63),
-                    secondary = Color(0xFF03DAC5),
-                    background = Color(0xFFF5F5F5)
-                )
-            ) {
-                Surface(modifier = Modifier.fillMaxSize()) {
+            PocketResepTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     ResepScreen()
                 }
             }
@@ -46,9 +41,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ResepScreen() {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -57,20 +50,17 @@ fun ResepScreen() {
                 Text(
                     text = "Pocket Resep",
                     style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
                     text = "Kreasi Masak Anak Kos",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Gray
+                    color = SubtitleGray
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-
                 Text(
                     text = "Rekomendasi Populer",
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 12.dp)
                 )
             }
@@ -78,8 +68,7 @@ fun ResepScreen() {
 
         item {
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(horizontal = 4.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(ResepSource.daftarResep.take(3)) { resep ->
                     CardRekomendasi(resep)
@@ -91,7 +80,6 @@ fun ResepScreen() {
             Text(
                 text = "Daftar Menu Lengkap",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
@@ -107,6 +95,7 @@ fun CardRekomendasi(resep: Resep) {
     Card(
         modifier = Modifier.width(160.dp),
         shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column {
@@ -122,7 +111,6 @@ fun CardRekomendasi(resep: Resep) {
                 Text(
                     text = resep.nama,
                     style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
                     maxLines = 1
                 )
                 Text(
@@ -143,7 +131,7 @@ fun CardResep(resep: Resep) {
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Box {
@@ -155,7 +143,6 @@ fun CardResep(resep: Resep) {
                         .height(180.dp),
                     contentScale = ContentScale.Crop
                 )
-
                 IconButton(
                     onClick = { isFavorite = !isFavorite },
                     modifier = Modifier
@@ -165,37 +152,38 @@ fun CardResep(resep: Resep) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favorite",
-                        tint = if (isFavorite) Color.Red else Color.White
+                        tint = if (isFavorite) FavoriteRed else OnPrimaryText
                     )
                 }
             }
-
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
                     text = resep.nama,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.titleLarge
                 )
                 Text(
                     text = "Bahan: ${resep.bahan}",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.DarkGray
+                    color = SubtitleGray
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Rp ${resep.harga}",
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-
                 Button(
                     onClick = { },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
-                    Text("Lihat Resep", fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "Lihat Resep",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
                 }
             }
         }
